@@ -89,7 +89,7 @@ class Node {
     _x = x;
     _y = y;
     _coordinates.first = x;
-    _coordinates.second = _y;
+    _coordinates.second = y;
     return;
   }
 
@@ -215,7 +215,7 @@ class Tree {
     // Initialize random generator seed
     srand (time(NULL));
 
-    // SAve all node coordinates in Tree.csv
+    // Save all node coordinates in Tree.csv
     std::ofstream outFile;
     outFile.open("Tree.csv");
     outFile << "x,y\n";
