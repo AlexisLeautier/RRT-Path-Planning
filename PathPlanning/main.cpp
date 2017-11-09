@@ -70,7 +70,7 @@ int main() {
   Tree T(startingPoint, goal, xBound, yBound);
 
   // Create random obstacles on the way
-  T.GenerateRandomObstacles(NumberOfObstacles);
+  T.Tree::GenerateRandomObstacles(NumberOfObstacles);
 
   // Initialize the last Node of the trajectory called tail
   Node tail;

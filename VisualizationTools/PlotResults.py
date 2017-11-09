@@ -22,7 +22,7 @@ ax.set_aspect('equal')
 
 # Read data from Tree.csv into TreeXY
 fieldnames = ['x', 'y']
-TreePath = 'Tree.csv'
+TreePath = 'Results/Tree.csv'
 TreeXY= {}
 
 with open(TreePath, 'r+') as csvfile:
@@ -43,7 +43,7 @@ with open(TreePath, 'r+') as csvfile:
 ax.plot(TreeXY['x'], TreeXY['y'], 'o', markeredgecolor="None", color='#43d5ef', ms = 2.7)
 
 # Read data from Trajectory.csv into TrajXY
-TrajPath = 'Trajectory.csv'
+TrajPath = 'Results/Trajectory.csv'
 TrajXY = {}
 
 with open(TrajPath, 'r+') as csvfile:
@@ -66,7 +66,7 @@ ax.plot(TrajXY['x'][-1], TrajXY['y'][-1], 'xk', ms = 5)
                 
 # Read data from Obstacles.csv into Obstacles
 fieldnames = ['LBX', 'LBY', 'width', 'length']
-ObsPath = 'Obstacles.csv'
+ObsPath = 'Results/Obstacles.csv'
 Obstacles = {}
 
 with open(ObsPath, 'r+') as csvfile:

@@ -8,14 +8,18 @@ In order to use the project directly from command line, one must follow the foll
 ```$ cd RRT-Path-Planning/PathPlanning```
 
 * Compile the project and create executable: 
-```$ g++ main.cpp -o PathPlanning```
+```$ g++ main.cpp RRT.cpp -o PathPlanning```
 
 * Make visualization tools executable:
 ```$ cd ..```
 ```$ chmod +x VisualizationTools/PlotResults.py```
 
 * Search a trajectory by running **PathPlanning**: 
-```$ PathPlanning\PathPlanning``` (overwrites the Tree.csv, Trajectory.csv and Obstacles.csv files)
+```$ PathPlanning/PathPlanning``` (overwrites the Tree.csv, Trajectory.csv and Obstacles.csv files)
 
 * Plot Trajectory: 
 ```$ VisualizationTools/PlotResults.py```
+
+
+#### Note: 
+All files must be launched from the main directory *RRT-Path-Planning* for the program to work.
