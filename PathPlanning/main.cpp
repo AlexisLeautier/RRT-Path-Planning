@@ -28,8 +28,8 @@
  *  This project is designed to simulate a vehicle searching a trajectory in a
  *  rather unpredictable but fully known environment. Each obstacle can represent
  *  a fixed obstacle (tree, house, etc.) or a moving one (pedestrian, bike, car,
- *  boat, etc.) if we run the algorithm at each time step when the position of
- *  the obstacles is updated.
+ *  boat, etc.) if we run the algorithm at each time step when the positions of
+ *  the obstacles are updated.
  *
  * Further improvement:
  *  - The algorithm used is the simplest form of RRT algorithms, it provides a
@@ -74,18 +74,12 @@ int main() {
 
   // Initialize the last Node of the trajectory called tail
   Node tail;
-  try {
-    T.searchTrajectory(tail);
-  }
-  catch (...) {
-    std::cout << "An exception occurred. The memory used will now be freed and we will escape the program." << std::endl;
-    //T.deleteTree(&T._head);
-    throw;
-  }
 
-  // Record the trajectory in the Trajectory.csv file and free the memory
+  // Search a Trajectory
+  T.searchTrajectory(tail);
+
+  // Record the trajectory in the Trajectory.csv file
   T.printToCSV(tail);
-  //T.deleteTree(&T._head);
 
   return 0;
 

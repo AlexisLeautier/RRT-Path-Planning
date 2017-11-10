@@ -1,8 +1,7 @@
 /*
  * RRT.hpp
  *
- *  Created on: Oct 23, 2017
- *      Author: Alexis Leautier
+ *   Author: Alexis Leautier
  *
  * This header defines the namespace RRT which contains the classes Node,
  * Tree and Obstacle. The Tree class is used along with its member functions
