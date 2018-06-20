@@ -3,7 +3,7 @@
  *
  *   Author: Alexis Leautier
  *
- * In this file are defined the member functions for the Obstacle, Node 
+ * In this file are defined the member functions for the Obstacle, Node
  * and Tree classes in the namespace RRT.
  */
 
@@ -13,7 +13,7 @@ using namespace RRT;
 
 ///////////////////////////////////////////////////////////////////////
 // OBSTACLE:
-Obstacle::Obstacle(double vertices[4][2]) {
+Obstacle::Obstacle(const double vertices[4][2]) {
 
   // Using the 2D coordinates of the four vertices, build H and b
   double x1, x2, y1, y2;
@@ -47,7 +47,7 @@ Node::Node(){
 }
 
 // Assign x, y and coordinates
-void Node::SetXY(double x, double y) {
+void Node::SetXY(const double x,const double y) {
 
   _x = x;
   _y = y;
@@ -59,7 +59,7 @@ void Node::SetXY(double x, double y) {
 
 // Add the node to the tree by assigning its parent and registering it
 // as its parent's child
-void Node::SetParent(Node* parent){
+void Node::SetParent(Node* const parent){
 
   if (parent){
     _parent = parent;
@@ -71,7 +71,7 @@ void Node::SetParent(Node* parent){
 
 ///////////////////////////////////////////////////////////////////////
 // TREE:
-Tree::Tree(double startingPoint [2], double goal [2], std::pair<double, double> xBound, std::pair<double, double> yBound) {
+Tree::Tree(const double startingPoint[2],const double goal[2],const std::pair<double, double> &xBound,const std::pair<double, double> &yBound) {
 
   _head._x  = startingPoint[0];
   _head._y = startingPoint[1];
@@ -85,7 +85,7 @@ Tree::Tree(double startingPoint [2], double goal [2], std::pair<double, double> 
 }
 
 // Compute the distance from point A to point B
-double Tree::distance(std::pair<double, double> A, std::pair<double, double> B){
+double Tree::Distance(const std::pair<double, double> &A, const std::pair<double, double> &B){
 
   double d;
   d = sqrt((A.first - B.first) * (A.first - B.first) +
@@ -97,9 +97,9 @@ double Tree::distance(std::pair<double, double> A, std::pair<double, double> B){
 // Check if a given point is in the neighborhood of the goal.
 // The goal is considered reached if a node is located in a disk of
 // radius "tolerance" around it.
-bool Tree::isAchieved(std::pair<double, double> point, double tolerance) {
+bool Tree::IsAchieved(const std::pair<double, double> &point, const double tolerance) {
 
-  if (distance(_goal, point) < tolerance){
+  if (Distance(_goal, point) < tolerance){
     return true;
   }
   return false;
@@ -107,7 +107,7 @@ bool Tree::isAchieved(std::pair<double, double> point, double tolerance) {
 }
 
 // Check if a point is safe with respect to the defined obstacles
-bool Tree::IsSafe(std::pair<double, double> point) {
+bool Tree::IsSafe(const std::pair<double, double> &point) {
 
   for (unsigned int k=0; k<_obstacles.size(); k++){
     bool iflag(false);
@@ -123,25 +123,26 @@ bool Tree::IsSafe(std::pair<double, double> point) {
 // Return in a pair the minimum distance to a given point from all points
 // in the current branch defined by root and the node where this distance
 // is achieved.
-std::pair<Node*, double> Tree::searchBranch(Node* root, std::pair<double, double> point, std::pair<Node*, double> minPair) {
+std::pair<Node*, double> Tree::SearchBranch(Node* const root, const std::pair<double, double> &point, const std::pair<Node*, double> &currMinPair) {
 
   Node* iNode = root;
+  std::pair<Node*, double> minPair = currMinPair;
   double minDistance = minPair.second;
 
   // Search branch until the next fork
   while (iNode->_children.size() == 1){
-    if(distance(iNode->_coordinates, point) < minDistance){
+    if(Distance(iNode->_coordinates, point) < minDistance){
       minPair.first = iNode;
-      minDistance = distance(iNode->_coordinates, point);
+      minDistance = Distance(iNode->_coordinates, point);
       minPair.second = minDistance;
     }
     iNode = iNode->_children[0];
   }
 
   // Search last node
-  if(distance(iNode->_coordinates, point) < minDistance){
+  if(Distance(iNode->_coordinates, point) < minDistance){
     minPair.first = iNode;
-    minDistance = distance(iNode->_coordinates, point);
+    minDistance = Distance(iNode->_coordinates, point);
     minPair.second = minDistance;
   }
 
@@ -149,18 +150,17 @@ std::pair<Node*, double> Tree::searchBranch(Node* root, std::pair<double, double
   if (iNode->_children.size() > 1){
     std::pair<Node*, double> newPair;
     for (unsigned int i=0; i<iNode->_children.size(); i++){
-      newPair = searchBranch(iNode->_children[i], point, minPair);
+      newPair = SearchBranch(iNode->_children[i], point, minPair);
       if (newPair.second < minPair.second) {
         minPair = newPair;
       }
     }
   }
   return minPair;
-
 }
 
 // Search a path from head to goal while avoiding obstacles
-void Tree::searchTrajectory(Node &TrajTail){
+void Tree::SearchTrajectory(Node &TrajTail){
 
   // Initialize temporary variables
   std::pair<double, double> randPoint,directionVector;
@@ -185,15 +185,15 @@ void Tree::searchTrajectory(Node &TrajTail){
     randPoint.second = ((double) rand() / (RAND_MAX)) * (_yBound.second - _yBound.first) + _yBound.first;
 
     // Search through the whole tree for the closest node
-    minPair.second = distance(_head._coordinates, randPoint);
+    minPair.second = Distance(_head._coordinates, randPoint);
     minPair.first = &_head;
-    minPair = searchBranch(minPair.first, randPoint, minPair);
+    minPair = SearchBranch(minPair.first, randPoint, minPair);
 
     // From the closest node, create a new node in the direction of the random point
     directionVector.first = (randPoint.first - minPair.first->_x);
     directionVector.second = (randPoint.second- minPair.first->_y);
-    directionVector.first /= distance(randPoint, minPair.first->_coordinates);
-    directionVector.second /= distance(randPoint, minPair.first->_coordinates);
+    directionVector.first /= Distance(randPoint, minPair.first->_coordinates);
+    directionVector.second /= Distance(randPoint, minPair.first->_coordinates);
     Node* iNode = new Node;
     iNode->SetXY(minPair.first->_x + directionVector.first * _branchLength,
                     minPair.first->_y+ directionVector.second * _branchLength);
@@ -205,7 +205,7 @@ void Tree::searchTrajectory(Node &TrajTail){
     }
 
     // Check if the new node reached the goal
-    if (isAchieved(iNode->_coordinates,tolerance)){
+    if (IsAchieved(iNode->_coordinates,tolerance)){
       TrajTail = *iNode;
       std::cout << "Success !\nA trajectory was found." << std::endl;
       return;
@@ -224,7 +224,7 @@ void Tree::searchTrajectory(Node &TrajTail){
 }
 
 // Print the coordinates of each node in the path to Trajectory.csv
-void Tree::printToCSV(Node tail){
+void Tree::PrintToCSV(const Node &tail){
 
   Node node = tail;
   std::ofstream outFile;
@@ -241,7 +241,7 @@ void Tree::printToCSV(Node tail){
 }
 
 // Generate a set of n random obstacles
-void Tree::GenerateRandomObstacles(int n){
+void Tree::GenerateRandomObstacles(const int n){
 
   srand (time(NULL));
   double obsXY[4][2];

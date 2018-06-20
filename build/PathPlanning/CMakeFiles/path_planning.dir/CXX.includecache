@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/alexis/RRT-Path-Planning/PathPlanning/RRT.cpp
+RRT.hpp
+/home/alexis/RRT-Path-Planning/PathPlanning/RRT.hpp
+
+/home/alexis/RRT-Path-Planning/PathPlanning/RRT.hpp
+iostream
+-
+fstream
+-
+ostream
+-
+cstdlib
+-
+vector
+-
+math.h
+-
+
+/home/alexis/RRT-Path-Planning/PathPlanning/main.cpp
+RRT.hpp
+/home/alexis/RRT-Path-Planning/PathPlanning/RRT.hpp
+

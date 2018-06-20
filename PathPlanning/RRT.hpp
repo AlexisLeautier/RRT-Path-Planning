@@ -37,7 +37,7 @@ class Obstacle {
   double b [4];
 
   // Initializer
-  Obstacle(double vertices[4][2]);
+  Obstacle(const double vertices[4][2]);
 };
 
 /* NODE:
@@ -61,11 +61,11 @@ class Node {
   Node();
 
   // Assign x, y and coordinates
-  void SetXY(double x, double y);
+  void SetXY(const double x, const double y);
 
   // Add the node to the tree by assigning its parent and registering it
   // as its parent's child
-  void SetParent(Node* parent);
+  void SetParent(Node* const parent);
 
 };
 
@@ -90,32 +90,32 @@ class Tree {
   double _branchLength;
 
   // Initializer
-  Tree(double startingPoint [2], double goal [2], std::pair<double, double> xBound, std::pair<double, double> yBound);
+  Tree(const double startingPoint [2], const double goal [2], const std::pair<double, double> &xBound, const std::pair<double, double> &yBound);
 
   // Compute the distance from point A to point B
-  double distance(std::pair<double, double> A, std::pair<double, double> B);
+  double Distance(const std::pair<double, double> &A, const std::pair<double, double> &B);
 
   // Check if a given point is in the neighborhood of the goal.
   // The goal is considered reached if a node is located in a disk of
   // radius "tolerance" around it.
-  bool isAchieved(std::pair<double, double> point, double tolerance);
+  bool IsAchieved(const std::pair<double, double> &point, const double tolerance);
 
   // Check if a point is safe with respect to the defined obstacles
-  bool IsSafe(std::pair<double, double> point);
+  bool IsSafe(const std::pair<double, double> &point);
 
   // Return in a pair the minimum distance to a given point from all points
   // in the current branch defined by root and the node where this distance
   // is achieved.
-  std::pair<Node*, double> searchBranch(Node* root, std::pair<double, double> point, std::pair<Node*, double> minPair);
+  std::pair<Node*, double> SearchBranch(Node* const root, const std::pair<double, double> &point, const std::pair<Node*, double> &currMinPair);
 
   // Search a path from head to goal while avoiding obstacles
-  void searchTrajectory(Node &TrajTail);
+  void SearchTrajectory(Node &TrajTail);
 
   // Print the coordinates of each node in the path to Trajectory.csv
-  void printToCSV(Node tail);
+  void PrintToCSV(const Node &tail);
 
   // Generate a set of n random obstacles
-  void GenerateRandomObstacles(int n);
+  void GenerateRandomObstacles(const int n);
 };
 
 }

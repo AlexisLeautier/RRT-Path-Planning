@@ -50,15 +50,14 @@
 
 #include "RRT.hpp"
 
-using namespace RRT;
-
-
 int main() {
   // User input: (x,y) coordinates for the starting point and the goal to be reached
   // The coordinates must be inside the domain boundaries defined in the next paragraph
   double startingPoint[2], goal[2];
-  startingPoint[0] = 0; startingPoint[1] = 0;
-  goal[0] = 75;         goal[1] = 75;
+  startingPoint[0] = 0;
+  startingPoint[1] = 0;
+  goal[0] = 75;
+  goal[1] = 75;
   int NumberOfObstacles = 5;
 
   // Description of the domain boundaries
@@ -67,19 +66,19 @@ int main() {
   xBound.second = 100;  yBound.second = 100;
 
   // Initialize the research tree with the previous values
-  Tree T(startingPoint, goal, xBound, yBound);
+  RRT::Tree T(startingPoint, goal, xBound, yBound);
 
   // Create random obstacles on the way
-  T.Tree::GenerateRandomObstacles(NumberOfObstacles);
+  T.GenerateRandomObstacles(NumberOfObstacles);
 
   // Initialize the last Node of the trajectory called tail
-  Node tail;
+  RRT::Node tail;
 
   // Search a Trajectory
-  T.searchTrajectory(tail);
+  T.SearchTrajectory(tail);
 
   // Record the trajectory in the Trajectory.csv file
-  T.printToCSV(tail);
+  T.PrintToCSV(tail);
 
   return 0;
 
