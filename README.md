@@ -4,18 +4,18 @@ Sample of a code that uses RRT to find a path in a specified domain (c++) along 
 ## User guide
 In order to use the project directly from command line, one must follow the following steps: 
 
-* Go to path planning folder: 
-```$ cd RRT-Path-Planning/PathPlanning```
+* Go to the build folder: 
+```$ cd RRT-Path-Planning/build```
 
-* Compile the project and create executable: 
-```$ g++ main.cpp RRT.cpp -o PathPlanning```
+* Compile the project: 
+```$ cmake .. && make -j4```
 
 * Make visualization tools executable:
 ```$ cd ..```
 ```$ chmod +x VisualizationTools/PlotResults.py```
 
 * Search a trajectory by running **PathPlanning**: 
-```$ PathPlanning/PathPlanning``` (overwrites the Tree.csv, Trajectory.csv and Obstacles.csv files)
+```$ ./build/PathPlanning/path_planning``` (overwrites the Tree.csv, Trajectory.csv and Obstacles.csv files)
 
 * Plot Trajectory: 
 ```$ VisualizationTools/PlotResults.py```
