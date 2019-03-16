@@ -10,7 +10,7 @@ In order to use the project directly from command line, one must follow the foll
 * Compile the project: 
 ```$ mkdir build && cd build && cmake .. && make -j4```
 
-* Make visualization tools executable:
+* [Optional] Make visualization tools executable:
 ```$ cd ..```
 ```$ chmod +x VisualizationTools/PlotResults.py```
 
@@ -19,4 +19,6 @@ In order to use the project directly from command line, one must follow the foll
 
 * Plot Trajectory: 
 ```$ VisualizationTools/PlotResults.py```
+or, if you skipped the optional step: 
+```$ python VisualizationTools/PlotResults.py```
 
