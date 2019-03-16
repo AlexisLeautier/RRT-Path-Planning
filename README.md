@@ -8,7 +8,7 @@ In order to use the project directly from command line, one must follow the foll
 ```$ cd RRT-Path-Planning/build```
 
 * Compile the project: 
-```$ cmake .. && make -j4```
+```$ mkdir build && cd build && cmake .. && make -j4```
 
 * Make visualization tools executable:
 ```$ cd ..```
@@ -20,6 +20,3 @@ In order to use the project directly from command line, one must follow the foll
 * Plot Trajectory: 
 ```$ VisualizationTools/PlotResults.py```
 
-
-#### Note: 
-All files must be launched from the main directory *RRT-Path-Planning* for the program to work.
