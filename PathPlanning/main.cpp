@@ -18,52 +18,52 @@
  *  complex.
  *  Three files are created as outputs:
  *    - Tree.csv containing the coordinates of all nodes in the tree
- *    - Trajectory.csv (if a trajectory is found only) containing the coordinates
- *    of all the nodes in the trajectory
+ *    - Trajectory.csv (if a trajectory is found only) containing the
+ * coordinates of all the nodes in the trajectory
  *    - Obstacles.csv containing the coordinates of the obstacles
  *  In order to read these files and visualize the found path, a python script
  *  was also provided as annex.
  *
  * Notes:
  *  This project is designed to simulate a vehicle searching a trajectory in a
- *  rather unpredictable but fully known environment. Each obstacle can represent
- *  a fixed obstacle (tree, house, etc.) or a moving one (pedestrian, bike, car,
- *  boat, etc.) if we run the algorithm at each time step when the positions of
- *  the obstacles are updated.
+ *  rather unpredictable but fully known environment. Each obstacle can
+ * represent a fixed obstacle (tree, house, etc.) or a moving one (pedestrian,
+ * bike, car, boat, etc.) if we run the algorithm at each time step when the
+ * positions of the obstacles are updated.
  *
  * Further improvement:
  *  - The algorithm used is the simplest form of RRT algorithms, it provides a
- *  trajectory without any certainty that the vehicle will actually be capable of
- *  following it. Using the vehicle's dynamics could be a more computationally
+ *  trajectory without any certainty that the vehicle will actually be capable
+ * of following it. Using the vehicle's dynamics could be a more computationally
  *  expensive but more reliable alternative.
- *  - There is no certainty either that the provided path will be even close to an
- *  optimal solution , using an RRT* algorithm could help approach an optimal
+ *  - There is no certainty either that the provided path will be even close to
+ * an optimal solution , using an RRT* algorithm could help approach an optimal
  *  solution
  *  - The obstacles are avoided but no security margin is taken, hence no
- *  anticipation on their motion or on the size of the vehicle is made. To ensure
- *  safety, a clearance of a few units could be added around the obstacles.
- *  - At each iteration of the algorithm, the whole tree is searched which is very
- *  expensive computationally. Other existing search algorithms could be used to
- *  shorten this step.
+ *  anticipation on their motion or on the size of the vehicle is made. To
+ * ensure safety, a clearance of a few units could be added around the
+ * obstacles.
+ *  - At each iteration of the algorithm, the whole tree is searched which is
+ * very expensive computationally. Other existing search algorithms could be
+ * used to shorten this step.
  *
  */
 
-#include "RRT.hpp"
+#include "common.hpp"
+#include "node.hpp"
+#include "rrt.hpp"
 
 int main() {
-  // User input: (x,y) coordinates for the starting point and the goal to be reached
-  // The coordinates must be inside the domain boundaries defined in the next paragraph
-  double startingPoint[2], goal[2];
-  startingPoint[0] = 0;
-  startingPoint[1] = 0;
-  goal[0] = 75;
-  goal[1] = 75;
+  // User input: (x,y) coordinates for the starting point and the goal to be
+  // reached The coordinates must be inside the domain boundaries defined in the
+  // next paragraph
+  RRT::Point2d startingPoint(0.0, 0.0);
+  RRT::Point2d goal(75.0, 75.0);
   int NumberOfObstacles = 5;
 
   // Description of the domain boundaries
-  std::pair<double, double> xBound, yBound;
-  xBound.first = 0;   yBound.first = 0;
-  xBound.second = 100;  yBound.second = 100;
+  const RRT::Point2d xBound(0.0, 100.0);
+  const RRT::Point2d yBound(0.0, 100.0);
 
   // Initialize the research tree with the previous values
   RRT::Tree T(startingPoint, goal, xBound, yBound);
@@ -81,5 +81,4 @@ int main() {
   T.PrintToCSV(tail);
 
   return 0;
-
 }
