@@ -4,8 +4,8 @@ Sample of a code that uses RRT to find a path in a specified domain (c++) along 
 ## User guide
 In order to use the project directly from command line, one must follow the following steps: 
 
-* Go to the build folder: 
-```$ cd RRT-Path-Planning/build```
+* `cd` into the directory: 
+```$ cd RRT-Path-Planning/```
 
 * Compile the project: 
 ```$ mkdir build && cd build && cmake .. && make -j4```
